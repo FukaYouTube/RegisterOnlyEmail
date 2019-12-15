@@ -1,9 +1,32 @@
+// view .env file
+require('dotenv').config()
+
+
+// import source code
+const print = require('../source/print/print')
+const ipConfig = require('../source/ipconfig')
+
+
+// connect on db MongoDB
+require('mongoose').connect(process.env.URL_MONGO, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(print.log('Success connect to databases!')).catch(e => print.error(e))
+
+
+// application server
 const app = require('../index')
 
+
+// import https and fs
 const https = require('https')
 const fs = require('fs')
 
+
+// import port on .env or defult 3000
 let port = process.env.PORT || 3000
 
+
+// start server
 let server = https.createServer({ key: fs.readFileSync('bin/server.key'), cert: fs.readFileSync('bin/server.cert') }, app)
-server.listen(port)
+server.listen(port, () => print.log(`Connect to on port ${port} || ${ipConfig.ipconfig()}`))
