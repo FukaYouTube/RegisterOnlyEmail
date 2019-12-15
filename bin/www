@@ -1,0 +1,9 @@
+const app = require('../index')
+
+const https = require('https')
+const fs = require('fs')
+
+let port = process.env.PORT || 3000
+
+let server = https.createServer({ key: fs.readFileSync('bin/server.key'), cert: fs.readFileSync('bin/server.cert') }, app)
+server.listen(port)
