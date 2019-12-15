@@ -23,7 +23,7 @@ const https = require('https')
 const fs = require('fs')
 
 
-// import port on .env or defult 3000
+// import port on .env or default 3000
 let port = process.env.PORT || 3000
 
 
