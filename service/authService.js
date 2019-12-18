@@ -21,3 +21,17 @@ exports.Post = async (req, res) => {
         mailService.sendMailTo(req.body.email, code, user)
     }
 }
+
+// API
+exports.getApi = async (req, res) => {
+    const { userId, code } = req.params
+
+    if(code == user.code){
+        let user = await User.findOne({ id: userId })
+
+        user.username ?
+        res.redirect(`/u/${user.username}`) : res.redirect(`/u/${user.id}`)
+    }else{
+        res.status(400).send('error!')
+    }
+}
