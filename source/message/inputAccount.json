@@ -1,6 +1,10 @@
 {
     "message1": {
-        "subjects": "",
-        "text": ""
+        "subjects": "Hello!",
+        "text": "123"
+    },
+    "message2": {
+        "subjects": "Hello new users!",
+        "text": "123"
     }
 }
