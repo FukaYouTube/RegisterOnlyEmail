@@ -1,6 +1,8 @@
 const nodemailer = require('nodemailer')
 const fs = require('fs')
 
+const localIpAddress = require('../source/ipconfig')
+
 let mail = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -12,7 +14,7 @@ let mail = nodemailer.createTransport({
 let msg = JSON.parse(fs.readFileSync('source/message/inputAccount.json'))
 
 exports.sendMailTo = (email, code, user) => {
-    let urlCode = `https://localhost:4349/mail/api/${user.id}&${code}`
+    let urlCode = `${localIpAddress.ipconfig()}mail/api/${user.id}&${code}`
     
     mail.sendMail({
         from: process.env.E_LOGIN,
@@ -23,7 +25,7 @@ exports.sendMailTo = (email, code, user) => {
 }
 
 exports.sendMailToNewUser = (email, code, user) => {
-    let urlCode = `https://localhost:4349/mail/api/${user.id}&${code}`
+    let urlCode = `${localIpAddress.ipconfig()}mail/api/${user.id}&${code}`
 
     mail.sendMail({
         from: process.env.E_LOGIN,
