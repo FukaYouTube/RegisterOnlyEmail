@@ -13,9 +13,10 @@ app.use(bodyParser.json(), bodyParser.urlencoded({ extended: false }))
 app.use(expressSession({ secret: process.env.SECRET, cookie: { maxAge: null }, resave: false, saveUninitialized: false }))
 
 // import router
-const { authRotuer } = require('./router')
+const { authRouter, userRouter } = require('./router')
 
 // use router
-app.use('/', authRotuer)
+app.use('/', authRouter)
+app.use('/u/', userRouter)
 
 module.exports = app
