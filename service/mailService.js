@@ -11,9 +11,8 @@ let mail = nodemailer.createTransport({
 
 let msg = JSON.parse(fs.readFileSync('source/message/inputAccount.json'))
 
-exports.sendMailTo = (email, user) => {
-    let code = Math.floor(10000000000 + Math.random() * 90000000000) // 11
-    let urlCode = `https://localhost:4349/mail/api/${user._id}&${code}`
+exports.sendMailTo = (email, code, user) => {
+    let urlCode = `https://localhost:4349/mail/api/${user.id}&${code}`
     
     mail.sendMail({
         from: process.env.E_LOGIN,
@@ -23,6 +22,13 @@ exports.sendMailTo = (email, user) => {
     })
 }
 
-exports.sendMailToNewUser = () => {
+exports.sendMailToNewUser = (email, code, user) => {
+    let urlCode = `https://localhost:4349/mail/api/${user.id}&${code}`
 
+    mail.sendMail({
+        from: process.env.E_LOGIN,
+        to: email,
+        subject: msg['message2'].subjects,
+        text: msg['message2'].text + ` ${urlCode}`
+    })
 }
